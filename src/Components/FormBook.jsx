@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 export function FormBook() {
   const [validated, setValidated] = useState(false);
   let [estados, setEstados] = useState([])
-  let [cidades , setCidade]= useState([])
+  let [cidades, setCidade] = useState([])
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -30,22 +30,19 @@ export function FormBook() {
       })
   }
 
-  const fetchCidades = sigla =>{
+  const fetchCidades = sigla => {
     fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${sigla}/municipios`)
-    .then(Response =>Response.json())
-    .then(data=>{
-      setCidade(data);
-    })
+      .then(Response => Response.json())
+      .then(data => {
+        setCidade(data.map(city => <option >{city.nome}</option>))
+      })
   }
 
 
   useEffect(() => {
     fetchEstados();
     console.log('useEffect');
-  },[])
-
-
-
+  }, [])
 
 
   return (
@@ -72,25 +69,33 @@ export function FormBook() {
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         </Form.Group>
-    
+
       </Row>
       <Row className="mb-3">
-        
+
         <Form.Group as={Col} md="3" controlId="validationCustom04">
           <Form.Label>Estado</Form.Label>
-          <Form.Select aria-label="Default select example" onChange={e =>{
+          <Form.Select aria-label="Default select example" onChange={e => {
             let sigla = e.target.value;
             fetchCidades(sigla)
 
           }}>
             <option>Selecione..</option>
-            {estados.map(estado=> <option value={estado.sigla}>{estado.nome}</option> )}
-        {estados.map(estado=>console.log(estado.sigla, estado.nome))};
+            {estados.map(estado => <option value={estado.sigla}>{estado.nome}</option>)}
+
           </Form.Select>
         </Form.Group>
 
-        
-      
+        <Form.Group as={Col} md="3" controlId="validationCustom04">
+          <Form.Label>Cidade</Form.Label>
+          <Form.Select aria-label="Default select example" >
+            <option>Selecione..</option>
+            {cidades}
+          </Form.Select>
+        </Form.Group>
+
+
+
       </Row>
       <Button type="submit">Submit form</Button>
     </Form>
