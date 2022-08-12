@@ -8,7 +8,6 @@ export function FormBook() {
   const [validated, setValidated] = useState(false);
   let [estados, setEstados] = useState([])
   let [cidades, setCidade] = useState([])
-  
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -92,9 +91,6 @@ export function FormBook() {
             {cidades}
           </Form.Select>
         </Form.Group>
-
-
-
       </Row>
       <Button type="submit">Submit form</Button>
     </Form>
