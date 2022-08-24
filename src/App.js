@@ -1,8 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-import { FormBook } from './Components/FormBook';
-import { NavBar } from './Components/NavBar';
-import BookTable from './Components/BokTable';
+import "./App.css";
+import { FormBook } from "./Components/FormBook";
+import { NavBar } from "./Components/NavBar";
+import BookTable from "./Components/BokTable";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -10,8 +10,12 @@ function App() {
       <NavBar />
 
       <div className="container">
-        <FormBook />
-        <BookTable/>
+        {/* <FormBook />
+        <BookTable/> */}
+        <Routes>
+          <Route path="/form" element={<FormBook />} />
+          <Route path="/table" element={<BookTable />} />
+        </Routes>
       </div>
     </div>
   );
